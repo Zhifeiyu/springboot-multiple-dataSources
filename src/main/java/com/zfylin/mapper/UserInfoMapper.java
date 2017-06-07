@@ -1,6 +1,6 @@
-package com.huan.mapper;
+package com.zfylin.mapper;
 
-import com.huan.model.UserInfo;
+import com.zfylin.model.UserInfo;
 
 import java.util.List;
 

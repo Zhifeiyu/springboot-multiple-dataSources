@@ -1,8 +1,8 @@
-package com.huan.config;
+package com.zfylin.config;
 
 import com.alibaba.druid.pool.DruidDataSourceFactory;
-import com.huan.util.DatabaseType;
-import com.huan.util.DynamicDataSource;
+import com.zfylin.util.DatabaseType;
+import com.zfylin.util.DynamicDataSource;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -21,8 +21,10 @@ import java.util.Map;
 import java.util.Properties;
 
 /**
- * springboot集成mybatis的基本入口 1）创建数据源(如果采用的是默认的tomcat-jdbc数据源，则不需要)
- * 2）创建SqlSessionFactory 3）配置事务管理器，除非需要使用事务，否则不用配置
+ * springboot集成mybatis的基本入口
+ * 1）创建数据源(如果采用的是默认的tomcat-jdbc数据源，则不需要)
+ * 2）创建SqlSessionFactory
+ * 3）配置事务管理器，除非需要使用事务，否则不用配置
  */
 @Configuration // 该注解类似于spring配置文件
 public class MyBatisConfig implements EnvironmentAware {
@@ -79,7 +81,7 @@ public class MyBatisConfig implements EnvironmentAware {
     @Bean
     public MapperScannerConfigurer mapperScannerConfigurer() {
         MapperScannerConfigurer scannerConfigurer = new MapperScannerConfigurer();
-        scannerConfigurer.setBasePackage("com.huan.mapper");
+        scannerConfigurer.setBasePackage("com.zfylin.mapper");
         Properties props = new Properties();
         props.setProperty("mappers", "tk.mybatis.mapper.common.Mapper");
         props.setProperty("IDENTITY", "MYSQL");
@@ -98,13 +100,12 @@ public class MyBatisConfig implements EnvironmentAware {
         SqlSessionFactoryBean fb = new SqlSessionFactoryBean();
         fb.setDataSource(ds);// 指定数据源(这个必须有，否则报错)
         // 下边两句仅仅用于*.xml文件，如果整个持久层操作不需要使用到xml文件的话（只用注解就可以搞定），则不加
-        fb.setTypeAliasesPackage("com.huan.model");// 指定基包
+        fb.setTypeAliasesPackage("com.zfylin.model");// 指定基包
         fb.setMapperLocations(resolver.getResources("classpath:mapper/**/*.xml"));//
 
         return fb.getObject();
     }
-
-
+    
 
     /**
      * 配置事务管理器

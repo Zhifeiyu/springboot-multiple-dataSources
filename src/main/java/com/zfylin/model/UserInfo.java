@@ -1,4 +1,4 @@
-package com.huan.model;
+package com.zfylin.model;
 
 public class UserInfo {
     /**

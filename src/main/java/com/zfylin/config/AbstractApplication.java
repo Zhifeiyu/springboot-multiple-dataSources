@@ -1,6 +1,6 @@
-package com.huan.config;
+package com.zfylin.config;
 
-import com.huan.util.Constants;
+import com.zfylin.util.Constants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -3,11 +3,11 @@ server:
 
 test1-datasource:
     driverClassName: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/database1?characterEncoding=utf8&useSSL=false&serverTimezone=UTC
+    url: jdbc:mysql://112.74.175.35:3306/test1?characterEncoding=utf8&useSSL=false&serverTimezone=UTC
     username: root
-    password: root
+    password: Zfy@55665566
 test2-datasource:
     driverClassName: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/database2?characterEncoding=utf8&useSSL=false&serverTimezone=UTC
+    url: jdbc:mysql://112.74.175.35:3306/test2?characterEncoding=utf8&useSSL=false&serverTimezone=UTC
     username: root
-    password: root
+    password: Zfy@55665566

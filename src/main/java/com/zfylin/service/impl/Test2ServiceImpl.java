@@ -1,8 +1,8 @@
-package com.huan.service.impl;
+package com.zfylin.service.impl;
 
-import com.huan.mapper.UserDetailMapper;
-import com.huan.model.UserDetail;
-import com.huan.service.Test2Service;
+import com.zfylin.mapper.UserDetailMapper;
+import com.zfylin.model.UserDetail;
+import com.zfylin.service.Test2Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

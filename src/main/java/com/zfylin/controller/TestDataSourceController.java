@@ -1,8 +1,8 @@
-package com.huan.controller;
+package com.zfylin.controller;
 
-import com.huan.model.UserDetail;
-import com.huan.model.UserInfo;
-import com.huan.service.CommonService;
+import com.zfylin.model.UserDetail;
+import com.zfylin.model.UserInfo;
+import com.zfylin.service.CommonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;

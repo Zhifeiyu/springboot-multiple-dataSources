@@ -1,4 +1,4 @@
-package com.huan.util;
+package com.zfylin.util;
 
 /**
  * @author <a href="mailto:jean@eastcode.org">Jean Seurin</a>

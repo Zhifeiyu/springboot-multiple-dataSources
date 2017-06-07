@@ -1,7 +1,7 @@
-package com.huan.service;
+package com.zfylin.service;
 
-import com.huan.model.UserDetail;
-import com.huan.model.UserInfo;
+import com.zfylin.model.UserDetail;
+import com.zfylin.model.UserInfo;
 
 import java.util.List;
 

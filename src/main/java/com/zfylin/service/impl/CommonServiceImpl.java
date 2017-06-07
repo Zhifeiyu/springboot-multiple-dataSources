@@ -1,10 +1,10 @@
-package com.huan.service.impl;
+package com.zfylin.service.impl;
 
-import com.huan.model.UserDetail;
-import com.huan.model.UserInfo;
-import com.huan.service.CommonService;
-import com.huan.service.Test1Service;
-import com.huan.service.Test2Service;
+import com.zfylin.model.UserDetail;
+import com.zfylin.model.UserInfo;
+import com.zfylin.service.CommonService;
+import com.zfylin.service.Test1Service;
+import com.zfylin.service.Test2Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

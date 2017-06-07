@@ -1,9 +1,9 @@
-package com.huan.config;
+package com.zfylin.config;
 
-import com.huan.service.Test1Service;
-import com.huan.service.impl.Test1ServiceImpl;
-import com.huan.util.DatabaseContextHolder;
-import com.huan.util.DatabaseType;
+import com.zfylin.service.Test1Service;
+import com.zfylin.service.impl.Test1ServiceImpl;
+import com.zfylin.util.DatabaseContextHolder;
+import com.zfylin.util.DatabaseType;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
@@ -17,7 +17,7 @@ public class DataSourceAspect {
     /**
      * 使用空方法定义切点表达式
      */
-    @Pointcut("execution(* com.huan.service.**.*(..))")
+    @Pointcut("execution(* com.zfylin.service.**.*(..))")
     public void declareJointPointExpression() {
     }
 
