@@ -1,5 +1,6 @@
 package com.zfylin.service.impl;
 
+import com.zfylin.config.TargetDataSource;
 import com.zfylin.mapper.UserInfoMapper;
 import com.zfylin.model.UserInfo;
 import com.zfylin.service.Test1Service;
@@ -14,6 +15,7 @@ public class Test1ServiceImpl implements Test1Service {
     @Autowired
     private UserInfoMapper userInfoMapper;
 
+    @TargetDataSource("test1")
     public List<UserInfo> selectUserInfo() {
         return userInfoMapper.selectAll();
     }

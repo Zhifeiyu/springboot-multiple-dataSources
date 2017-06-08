@@ -1,4 +1,4 @@
-package com.zfylin.util;
+package com.zfylin.config;
 
 /**
  * 列出所有的数据源key（常用数据库名称来命名）

@@ -1,8 +1,6 @@
 package com.zfylin.config;
 
 import com.alibaba.druid.pool.DruidDataSourceFactory;
-import com.zfylin.util.DatabaseType;
-import com.zfylin.util.DynamicDataSource;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -21,7 +19,8 @@ import java.util.Map;
 import java.util.Properties;
 
 /**
- * springboot集成mybatis的基本入口
+ * spring boot集成mybatis的基本入口
+ * <p>
  * 1）创建数据源(如果采用的是默认的tomcat-jdbc数据源，则不需要)
  * 2）创建SqlSessionFactory
  * 3）配置事务管理器，除非需要使用事务，否则不用配置
@@ -42,20 +41,22 @@ public class MyBatisConfig implements EnvironmentAware {
     @Bean
     public DataSource test1DataSource() throws Exception {
         Properties props = new Properties();
-        props.put("driverClassName", environment.getProperty("test1-datasource.driverClassName"));
-        props.put("url", environment.getProperty("test1-datasource.url"));
-        props.put("username", environment.getProperty("test1-datasource.username"));
-        props.put("password", environment.getProperty("test1-datasource.password"));
+        DatabaseContextHolder.dataSourceIds.add("test1");
+        props.put("driverClassName", environment.getProperty("datasource.test1.driverClassName"));
+        props.put("url", environment.getProperty("datasource.test1.url"));
+        props.put("username", environment.getProperty("datasource.test1.username"));
+        props.put("password", environment.getProperty("datasource.test1.password"));
         return DruidDataSourceFactory.createDataSource(props);
     }
 
     @Bean
     public DataSource test2DataSource() throws Exception {
         Properties props = new Properties();
-        props.put("driverClassName", environment.getProperty("test2-datasource.driverClassName"));
-        props.put("url", environment.getProperty("test2-datasource.url"));
-        props.put("username", environment.getProperty("test2-datasource.username"));
-        props.put("password", environment.getProperty("test2-datasource.password"));
+        DatabaseContextHolder.dataSourceIds.add("test2");
+        props.put("driverClassName", environment.getProperty("datasource.test2.driverClassName"));
+        props.put("url", environment.getProperty("datasource.test2.url"));
+        props.put("username", environment.getProperty("datasource.test2.username"));
+        props.put("password", environment.getProperty("datasource.test2.password"));
         return DruidDataSourceFactory.createDataSource(props);
     }
 
@@ -68,8 +69,8 @@ public class MyBatisConfig implements EnvironmentAware {
     public DynamicDataSource dataSource(@Qualifier("test1DataSource") DataSource test1DataSource,
                                         @Qualifier("test2DataSource") DataSource test2DataSource) {
         Map<Object, Object> targetDataSources = new HashMap<>();
-        targetDataSources.put(DatabaseType.test1, test1DataSource);
-        targetDataSources.put(DatabaseType.test2, test2DataSource);
+        targetDataSources.put("test1", test1DataSource);
+        targetDataSources.put("test2", test2DataSource);
 
         DynamicDataSource dataSource = new DynamicDataSource();
         dataSource.setTargetDataSources(targetDataSources);// 该方法是AbstractRoutingDataSource的方法
@@ -105,7 +106,7 @@ public class MyBatisConfig implements EnvironmentAware {
 
         return fb.getObject();
     }
-    
+
 
     /**
      * 配置事务管理器

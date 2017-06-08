@@ -1,4 +1,4 @@
-package com.zfylin.util;
+package com.zfylin.config;
 
 import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 

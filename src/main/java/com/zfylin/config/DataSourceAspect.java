@@ -1,34 +1,40 @@
 package com.zfylin.config;
 
-import com.zfylin.service.Test1Service;
-import com.zfylin.service.impl.Test1ServiceImpl;
-import com.zfylin.util.DatabaseContextHolder;
-import com.zfylin.util.DatabaseType;
+import lombok.extern.java.Log;
+import lombok.extern.log4j.Log4j;
+import lombok.extern.log4j.Log4j2;
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
-import org.aspectj.lang.annotation.Pointcut;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Aspect
 @Component
+@Log4j
 public class DataSourceAspect {
+    @Value("${datasource.default}")
+    private static String defaultDataSource;
 
-    /**
-     * 使用空方法定义切点表达式
-     */
-    @Pointcut("execution(* com.zfylin.service.**.*(..))")
-    public void declareJointPointExpression() {
+    @Before(value = "@annotation(targetDataSource)")
+    public void setDataSourceKey(JoinPoint point, TargetDataSource targetDataSource) {
+        // 获取当前的指定的数据源;
+        String dsId = targetDataSource.value();
+        if (!DatabaseContextHolder.containsDataSource(dsId)) {
+            log.warn("数据源[ " + targetDataSource.value() + " ]不存在，使用默认数据源 > " + point.getSignature());
+            DatabaseContextHolder.setDatabaseType(defaultDataSource);
+        } else {
+            log.debug("UseDataSource : " + targetDataSource.value() + " > " + point.getSignature());
+            DatabaseContextHolder.setDatabaseType(dsId);
+        }
+
     }
 
-    @Before("declareJointPointExpression()")
-    public void setDataSourceKey(JoinPoint point){
-        //根据连接点所属的类实例，动态切换数据源
-        if (point.getTarget() instanceof Test1Service
-                || point.getTarget() instanceof Test1ServiceImpl) {
-            DatabaseContextHolder.setDatabaseType(DatabaseType.test1);
-        } else {//连接点所属的类实例是（当然，这一步也可以不写，因为defaultTargertDataSource就是该类所用的mytestdb）
-            DatabaseContextHolder.setDatabaseType(DatabaseType.test2);
-        }
+    @After(value = "@annotation(targetDataSource)")
+    public void restoreDataSource(JoinPoint point, TargetDataSource targetDataSource) {
+        log.debug("RevertDataSource : " + targetDataSource.value() + " > " + point.getSignature());
+        // 方法执行完毕之后，销毁当前数据源信息，进行垃圾回收。
+        DatabaseContextHolder.clearDataSourceType();
     }
 }
