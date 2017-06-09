@@ -2,16 +2,30 @@ server:
   port: 8080
 
 datasource:
-  names: test2
+  filters: stat
+  maxActive: 20
+  initialSize: 1
+  maxWait: 60000
+  minIdle: 1
+  timeBetweenEvictionRunsMillis: 60000
+  minEvictableIdleTimeMillis: 300000
+  validationQuery: select 'x'
+  testWhileIdle: true
+  testOnBorrow: false
+  testOnReturn: false
+  poolPreparedStatements: true
+  maxOpenPreparedStatements: 20
   default:
     type: com.alibaba.druid.pool.DruidDataSource
     driverClassName: com.mysql.jdbc.Driver
     url: jdbc:mysql://112.74.175.35:3306/test1?characterEncoding=utf8&useSSL=false&serverTimezone=UTC
     username: root
     password: Zfy@55665566
+  names: test2
   test2:
     type: com.alibaba.druid.pool.DruidDataSource
     driverClassName: com.mysql.jdbc.Driver
     url: jdbc:mysql://112.74.175.35:3306/test2?characterEncoding=utf8&useSSL=false&serverTimezone=UTC
     username: root
     password: Zfy@55665566
+
