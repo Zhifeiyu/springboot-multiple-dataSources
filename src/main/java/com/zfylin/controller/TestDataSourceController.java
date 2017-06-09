@@ -2,7 +2,6 @@ package com.zfylin.controller;
 
 import com.zfylin.model.UserDetail;
 import com.zfylin.model.UserInfo;
-import com.zfylin.service.CommonService;
 import com.zfylin.service.Test1Service;
 import com.zfylin.service.Test2Service;
 import org.springframework.beans.factory.annotation.Autowired;
