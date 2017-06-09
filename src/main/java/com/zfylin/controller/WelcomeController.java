@@ -7,9 +7,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by zfylin on 2016/5/21.
- */
 @RestController
 public class WelcomeController {
 

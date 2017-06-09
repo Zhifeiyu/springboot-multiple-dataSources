@@ -1,10 +1,5 @@
 package com.zfylin.util;
 
-/**
- * @author <a href="mailto:jean@eastcode.org">Jean Seurin</a>
- * @version $Id$
- * @since 13/08/15 - 18:36
- */
 public class Constants {
 
     public static final boolean DEBUG = true;

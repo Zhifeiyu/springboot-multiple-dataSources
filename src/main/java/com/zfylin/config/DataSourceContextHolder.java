@@ -22,14 +22,14 @@ public class DataSourceContextHolder {
      */
     static List<String> dataSourceIds = new ArrayList<>();
 
-    static String getDatabaseType(){
+    static String getDatabaseType() {
         return contextHolder.get();
     }
 
     /**
      * 使用setDataSourceType设置当前的
      *
-     * @param dataSourceType
+     * @param dataSourceType 数据源类型
      */
     static void setDatabaseType(String dataSourceType) {
         contextHolder.set(dataSourceType);
@@ -38,7 +38,7 @@ public class DataSourceContextHolder {
     /**
      * 判断指定DataSource当前是否存在
      *
-     * @param dataSourceId
+     * @param dataSourceId 数据源Id
      */
     static boolean containsDataSource(String dataSourceId) {
         return dataSourceIds.contains(dataSourceId);

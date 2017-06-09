@@ -1,7 +1,12 @@
 package com.zfylin.mapper;
 
 import com.zfylin.model.UserDetail;
-import tk.mybatis.mapper.common.Mapper;
+import org.apache.ibatis.annotations.Select;
 
-public interface UserDetailMapper extends Mapper<UserDetail> {
+import java.util.List;
+
+public interface UserDetailMapper {
+    @Select("SELECT * FROM user_detail")
+    List<UserDetail> getAll();
+
 }

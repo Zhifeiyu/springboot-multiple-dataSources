@@ -1,6 +1,5 @@
 package com.zfylin.config;
 
-import lombok.extern.log4j.Log4j;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.MutablePropertyValues;
 import org.springframework.beans.PropertyValues;
@@ -68,8 +67,6 @@ public class DynamicDataSourceRegister implements ImportBeanDefinitionRegistrar,
 
     /**
      * 加载主数据源配置.
-     *
-     * @param env
      */
     private void initDefaultDataSource(Environment env) {
         // 读取主数据源
@@ -105,8 +102,7 @@ public class DynamicDataSourceRegister implements ImportBeanDefinitionRegistrar,
     /**
      * 创建datasource.
      *
-     * @param dsMap
-     * @return
+     * @param dsMap 配置列表
      */
     @SuppressWarnings("unchecked")
     private DataSource buildDataSource(Map<String, Object> dsMap) {
@@ -135,9 +131,6 @@ public class DynamicDataSourceRegister implements ImportBeanDefinitionRegistrar,
 
     /**
      * 为DataSource绑定更多数据
-     *
-     * @param dataSource
-     * @param env
      */
     private void dataBinder(DataSource dataSource, Environment env) {
         RelaxedDataBinder dataBinder = new RelaxedDataBinder(dataSource);
@@ -147,7 +140,7 @@ public class DynamicDataSourceRegister implements ImportBeanDefinitionRegistrar,
         dataBinder.setIgnoreUnknownFields(true);//true
 
         if (dataSourcePropertyValues == null) {
-            Map<String, Object> rpr = new RelaxedPropertyResolver(env, "spring.datasource").getSubProperties(".");
+            Map<String, Object> rpr = new RelaxedPropertyResolver(env, "datasource").getSubProperties(".");
             Map<String, Object> values = new HashMap<>(rpr);
             // 排除已经设置的属性
             values.remove("type");
