@@ -1,6 +1,7 @@
 package com.zfylin.config;
 
 import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
@@ -10,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 @Aspect
 @Component
-@Log4j
+@Slf4j
 public class DataSourceAspect {
     @Value("${datasource.default}")
     private static String defaultDataSource;
