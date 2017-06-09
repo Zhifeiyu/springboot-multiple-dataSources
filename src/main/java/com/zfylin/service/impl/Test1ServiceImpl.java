@@ -15,7 +15,6 @@ public class Test1ServiceImpl implements Test1Service {
     @Autowired
     private UserInfoMapper userInfoMapper;
 
-    @TargetDataSource("test1")
     public List<UserInfo> selectUserInfo() {
         return userInfoMapper.selectAll();
     }

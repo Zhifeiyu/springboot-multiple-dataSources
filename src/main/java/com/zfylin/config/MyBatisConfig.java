@@ -1,21 +1,15 @@
 package com.zfylin.config;
 
-import com.alibaba.druid.pool.DruidDataSourceFactory;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import tk.mybatis.spring.mapper.MapperScannerConfigurer;
 
-import javax.sql.DataSource;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Properties;
 
 /**
@@ -35,49 +29,49 @@ public class MyBatisConfig implements EnvironmentAware {
         this.environment = environment;
     }
 
-    /**
-     * 创建数据源(数据源的名称：方法名可以取为XXXDataSource(),XXX为数据库名称,该名称也就是数据源的名称)
-     */
-    @Bean
-    public DataSource test1DataSource() throws Exception {
-        Properties props = new Properties();
-        DatabaseContextHolder.dataSourceIds.add("test1");
-        props.put("driverClassName", environment.getProperty("datasource.test1.driverClassName"));
-        props.put("url", environment.getProperty("datasource.test1.url"));
-        props.put("username", environment.getProperty("datasource.test1.username"));
-        props.put("password", environment.getProperty("datasource.test1.password"));
-        return DruidDataSourceFactory.createDataSource(props);
-    }
-
-    @Bean
-    public DataSource test2DataSource() throws Exception {
-        Properties props = new Properties();
-        DatabaseContextHolder.dataSourceIds.add("test2");
-        props.put("driverClassName", environment.getProperty("datasource.test2.driverClassName"));
-        props.put("url", environment.getProperty("datasource.test2.url"));
-        props.put("username", environment.getProperty("datasource.test2.username"));
-        props.put("password", environment.getProperty("datasource.test2.password"));
-        return DruidDataSourceFactory.createDataSource(props);
-    }
-
-    /**
-     * @Primary 该注解表示在同一个接口有多个实现类可以注入的时候，默认选择哪一个，而不是让@autowire注解报错
-     * @Qualifier 根据名称进行注入，通常是在具有相同的多个类型的实例的一个注入（例如有多个DataSource类型的实例）
-     */
-    @Bean
-    @Primary
-    public DynamicDataSource dataSource(@Qualifier("test1DataSource") DataSource test1DataSource,
-                                        @Qualifier("test2DataSource") DataSource test2DataSource) {
-        Map<Object, Object> targetDataSources = new HashMap<>();
-        targetDataSources.put("test1", test1DataSource);
-        targetDataSources.put("test2", test2DataSource);
-
-        DynamicDataSource dataSource = new DynamicDataSource();
-        dataSource.setTargetDataSources(targetDataSources);// 该方法是AbstractRoutingDataSource的方法
-        dataSource.setDefaultTargetDataSource(test2DataSource);// 默认的datasource设置为myTestDbDataSource
-
-        return dataSource;
-    }
+//    /**
+//     * 创建数据源(数据源的名称：方法名可以取为XXXDataSource(),XXX为数据库名称,该名称也就是数据源的名称)
+//     */
+//    @Bean
+//    public DataSource test1DataSource() throws Exception {
+//        Properties props = new Properties();
+//        DataSourceContextHolder.dataSourceIds.add("test1");
+//        props.put("driverClassName", environment.getProperty("datasource.test1.driverClassName"));
+//        props.put("url", environment.getProperty("datasource.test1.url"));
+//        props.put("username", environment.getProperty("datasource.test1.username"));
+//        props.put("password", environment.getProperty("datasource.test1.password"));
+//        return DruidDataSourceFactory.createDataSource(props);
+//    }
+//
+//    @Bean
+//    public DataSource test2DataSource() throws Exception {
+//        Properties props = new Properties();
+//        DataSourceContextHolder.dataSourceIds.add("test2");
+//        props.put("driverClassName", environment.getProperty("datasource.test2.driverClassName"));
+//        props.put("url", environment.getProperty("datasource.test2.url"));
+//        props.put("username", environment.getProperty("datasource.test2.username"));
+//        props.put("password", environment.getProperty("datasource.test2.password"));
+//        return DruidDataSourceFactory.createDataSource(props);
+//    }
+//
+//    /**
+//     * @Primary 该注解表示在同一个接口有多个实现类可以注入的时候，默认选择哪一个，而不是让@autowire注解报错
+//     * @Qualifier 根据名称进行注入，通常是在具有相同的多个类型的实例的一个注入（例如有多个DataSource类型的实例）
+//     */
+//    @Bean
+//    @Primary
+//    public DynamicDataSource dataSource(@Qualifier("test1DataSource") DataSource test1DataSource,
+//                                        @Qualifier("test2DataSource") DataSource test2DataSource) {
+//        Map<Object, Object> targetDataSources = new HashMap<>();
+//        targetDataSources.put("test1", test1DataSource);
+//        targetDataSources.put("test2", test2DataSource);
+//
+//        DynamicDataSource dataSource = new DynamicDataSource();
+//        dataSource.setTargetDataSources(targetDataSources);// 该方法是AbstractRoutingDataSource的方法
+//        dataSource.setDefaultTargetDataSource(test2DataSource);// 默认的datasource设置为myTestDbDataSource
+//
+//        return dataSource;
+//    }
 
     @Bean
     public MapperScannerConfigurer mapperScannerConfigurer() {

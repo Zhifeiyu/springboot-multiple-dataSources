@@ -1,8 +1,6 @@
 package com.zfylin.config;
 
-import lombok.extern.java.Log;
 import lombok.extern.log4j.Log4j;
-import lombok.extern.log4j.Log4j2;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
@@ -21,12 +19,12 @@ public class DataSourceAspect {
     public void setDataSourceKey(JoinPoint point, TargetDataSource targetDataSource) {
         // 获取当前的指定的数据源;
         String dsId = targetDataSource.value();
-        if (!DatabaseContextHolder.containsDataSource(dsId)) {
+        if (!DataSourceContextHolder.containsDataSource(dsId)) {
             log.warn("数据源[ " + targetDataSource.value() + " ]不存在，使用默认数据源 > " + point.getSignature());
-            DatabaseContextHolder.setDatabaseType(defaultDataSource);
+            DataSourceContextHolder.setDatabaseType(defaultDataSource);
         } else {
             log.debug("UseDataSource : " + targetDataSource.value() + " > " + point.getSignature());
-            DatabaseContextHolder.setDatabaseType(dsId);
+            DataSourceContextHolder.setDatabaseType(dsId);
         }
 
     }
@@ -35,6 +33,6 @@ public class DataSourceAspect {
     public void restoreDataSource(JoinPoint point, TargetDataSource targetDataSource) {
         log.debug("RevertDataSource : " + targetDataSource.value() + " > " + point.getSignature());
         // 方法执行完毕之后，销毁当前数据源信息，进行垃圾回收。
-        DatabaseContextHolder.clearDataSourceType();
+        DataSourceContextHolder.clearDataSourceType();
     }
 }

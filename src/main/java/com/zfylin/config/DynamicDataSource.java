@@ -17,6 +17,6 @@ public class DynamicDataSource extends AbstractRoutingDataSource {
      * @see org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource#determineCurrentLookupKey()
      */
     protected Object determineCurrentLookupKey() {
-        return DatabaseContextHolder.getDatabaseType();
+        return DataSourceContextHolder.getDatabaseType();
     }
 }
